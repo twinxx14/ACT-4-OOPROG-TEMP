@@ -1,0 +1,77 @@
+import java.util.Scanner;
+
+public class TemperatureAnalysis {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int numMonths = 12; // Number of months in a year
+        double[][] temperatures = new double[numMonths][2]; // 2 columns for high and low temps
+
+        // Method to read and store data in the array
+        getData(temperatures, scanner);
+
+        // Calculate and display average high and low temperatures
+        double averageHigh = averageHigh(temperatures);
+        double averageLow = averageLow(temperatures);
+        System.out.println("Average High Temperature for the Year: " + averageHigh);
+        System.out.println("Average Low Temperature for the Year: " + averageLow);
+
+        // Find and display the highest and lowest temperatures of the year
+        int highestTempIndex = indexHighTemp(temperatures);
+        int lowestTempIndex = indexLowTemp(temperatures);
+
+        System.out.println("Highest Temperature of the Year: " + temperatures[highestTempIndex][0]);
+        System.out.println("Lowest Temperature of the Year: " + temperatures[lowestTempIndex][1]);
+
+        scanner.close();
+    }
+
+    // Method to read and store data in the 2D array
+    public static void getData(double[][] temperatures, Scanner scanner) {
+        for (int i = 0; i < temperatures.length; i++) {
+            System.out.print("Enter high temperature for month " + (i + 1) + ": ");
+            temperatures[i][0] = scanner.nextDouble();
+            System.out.print("Enter low temperature for month " + (i + 1) + ": ");
+            temperatures[i][1] = scanner.nextDouble();
+        }
+    }
+
+    // Method to calculate and return the average high temperature
+    public static double averageHigh(double[][] temperatures) {
+        double sumHigh = 0;
+        for (int i = 0; i < temperatures.length; i++) {
+            sumHigh += temperatures[i][0];
+        }
+        return sumHigh / temperatures.length;
+    }
+
+    // Method to calculate and return the average low temperature
+    public static double averageLow(double[][] temperatures) {
+        double sumLow = 0;
+        for (int i = 0; i < temperatures.length; i++) {
+            sumLow += temperatures[i][1];
+        }
+        return sumLow / temperatures.length;
+    }
+
+    // Method to find and return the index of the highest temperature
+    public static int indexHighTemp(double[][] temperatures) {
+        int highestIndex = 0;
+        for (int i = 1; i < temperatures.length; i++) {
+            if (temperatures[i][0] > temperatures[highestIndex][0]) {
+                highestIndex = i;
+            }
+        }
+        return highestIndex;
+    }
+
+    // Method to find and return the index of the lowest temperature
+    public static int indexLowTemp(double[][] temperatures) {
+        int lowestIndex = 0;
+        for (int i = 1; i < temperatures.length; i++) {
+            if (temperatures[i][1] < temperatures[lowestIndex][1]) {
+                lowestIndex = i;
+            }
+        }
+        return lowestIndex;
+    }
+}
